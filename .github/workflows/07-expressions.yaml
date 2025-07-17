@@ -1,6 +1,5 @@
-
-
 name: 07 - Using Expressions
+run-name: 07 - Using Expressions | DEBUG - ${{ inputs.debug && 'ON' || 'OFF' }}
 
 on:
   workflow_dispatch:
@@ -9,10 +8,7 @@ on:
         type: boolean
         default: false
 
-env:
-  DEBUG_STATUS: ${{ inputs.debug && 'ON' || 'OFF' }}
-
-jobs:
+        jobs:
   echo:
     name: Using Expressions - Debug: ${{ env.DEBUG_STATUS }}
     runs-on: ubuntu-latest
