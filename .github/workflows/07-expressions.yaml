@@ -8,11 +8,10 @@ on:
         type: boolean
         default: false
 
-        jobs:
+jobs:
   echo:
-    name: Using Expressions - Debug: ${{ env.DEBUG_STATUS }}
+    name: Using Expressions - Debug
     runs-on: ubuntu-latest
-
     steps:
       - name: "[debug] Print start-up data"
         if: ${{ inputs.debug }}
