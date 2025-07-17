@@ -1,15 +1,25 @@
 name: 06 - Contexts
+run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
 
 on:
   push:
   workflow_dispatch:
+    inputs:
+       debug:
+        type: boolean
+        default: false
 
 env:
   my_variable: "Hello World"
+  MY_WORKFLOW_VAR: "Workflow"
+  MY_OVERWRITTEN_VAR: "Workflow"
 
 jobs:
   echo-data:
     runs-on: ubuntu-latest
+    env:
+      MY_JOB_VAR: "Job"
+      MY_OVERWRITTEN_VAR: "Job"
     steps:
       - name: Display Information
         run: |
@@ -24,3 +34,17 @@ jobs:
       - name: Retrieve Variable
         run: |
           echo "Variable value: ${{ env.my_variable }}"
+      - name: Retrieve Workflow Variable
+        env: 
+          MY_OVERWRITTEN_VAR: "step"
+        run: |
+          echo "Workflow variable value: ${{ env.MY_WORKFLOW_VAR }}"
+          echo "Overwritten env: ${{ env.MY_OVERWRITTEN_VAR }}"
+  echo-data2:
+    runs-on: ubuntu-latest
+    steps:
+        - name: print Env Variables
+          run: |
+            echo "Workflow env:  $MY_WORKFLOW_VAR" 
+            echo "Overwritten env:  $MY_OVERWRITTEN_VAR"
+
